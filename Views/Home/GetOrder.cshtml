@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "GetOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@foreach (var order_tmp in ViewBag.Order as Dictionary<string, Dictionary<string, string>>)
+{
+    if (order_tmp.Key == ViewBag.OrderCode)
+    {
+        <div align="center" class="text-danger">
+            <div>@order_tmp.Value["OrderName"]</div>
+            <div>
+                <img src="@order_tmp.Value["pic"]" alt="@order_tmp.Value["OrderName"]" width="10%" />
+            </div>
+            <div>
+                <form class="form-group" action="/Home/GetOrder" method="post">
+                    <label>@order_tmp.Value["cost"] Baht</label>
+                    <button class="btn btn-danger" name="OrderCode" value="@order_tmp.Key" type="submit">GET</button>
+                </form>
+            </div>
+            <div>
+                <div>Spec1 : @ViewBag.Order[ViewBag.OrderCode]["Spec1"]</div>
+                <div>Spec2 : @ViewBag.Order[ViewBag.OrderCode]["Spec2"]</div>
+                <div>Spec3 : @ViewBag.Order[ViewBag.OrderCode]["Spec3"]</div>
+                <div>Spec4 : @ViewBag.Order[ViewBag.OrderCode]["Spec4"]</div>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div align="center" class="container text-info">
+    <h1 class="display-4">Tracking your order</h1>
+    <div>
+        @Html.ActionLink("User", "User", "Tracking", new { }, new { @class="btn btn-info" })
+        @Html.ActionLink("OrderCode", "OrderCode", "Tracking", new { }, new { @class="btn btn-info" })
+    </div>
+</div>
