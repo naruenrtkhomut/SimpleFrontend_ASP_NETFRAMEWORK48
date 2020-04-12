@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_ModelType.cshtml";
+}
+
+    <div align="center" class="jumbotron-fluid text-info">
+        <h1 class="display-4 bg-info text-light">Latest Order Update</h1>
+        <div class="row">
+            @foreach (var order_tmp in ViewBag.Order as Dictionary<string, Dictionary<string, string>>)
+            {
+                foreach (var modelname_tmp in ViewBag.ModelNameLIST as List<string>)
+                {
+                    if (order_tmp.Value["ModelName"] == modelname_tmp)
+                    {
+                        <div class="col-sm-3" style="border: 1px solid #29a3a3;">
+                            <div>@order_tmp.Value["OrderName"]</div>
+                            <div>
+                                <img src="@order_tmp.Value["pic"]" alt="@order_tmp.Value["OrderName"]" width="60%" />
+                            </div>
+                            <div>
+                                <form class="form-group" action="/Home/GetOrder" method="post">
+                                    <label>@order_tmp.Value["cost"] Baht</label>
+                                    <button class="btn btn-info" name="OrderCode" value="@order_tmp.Key" type="submit">Buy</button>
+                                </form>
+                            </div>
+                            <div>
+                                <div>Spec1 : @order_tmp.Value["Spec1"]</div>
+                                <div>Spec2 : @order_tmp.Value["Spec2"]</div>
+                                <div>Spec3 : @order_tmp.Value["Spec3"]</div>
+                                <div>Spec4 : @order_tmp.Value["Spec4"]</div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
