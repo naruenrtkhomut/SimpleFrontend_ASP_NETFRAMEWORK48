@@ -1,0 +1,95 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="/">Home.com</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#HeaderLink" aria-controls="HeaderLink" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="HeaderLink">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/About">About<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Payment">Payment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/Tracking">Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Home/GetOrder">Order</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/Home/Search/" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div>
+        @foreach (var Modelnamecode_tmp in ViewBag.ModelNameLIST as List<string>)
+        {
+            foreach (var modelnamevalue_tmp in ViewBag.ModelNameValueLIST as Dictionary<string, string>)
+            {
+                if (Modelnamecode_tmp == modelnamevalue_tmp.Key)
+                {
+                    @Html.ActionLink(modelnamevalue_tmp.Value, "Index", "Order", new { ModelType = ViewBag.ModelType, ModelName = Modelnamecode_tmp }, new { @class = "btn btn-outline-info" })
+                }
+            }
+        }
+    </div>
+    @RenderBody()
+
+    <div class="container-fluid align-content-center p-lg-4 bg-white text-info">
+        <div class="row">
+            <div class="col-sm-4 display-4 text-secondary">@Html.ActionLink("Home.com", "Index", "Home", new { }, new { @class = "text-info", @style = "text-decoration:none;" })</div>
+            <div class="col-sm-4">
+                <div>Phonenumber</div>
+                <div>
+                    @foreach (var phonenumber_tmp in ViewBag.PhoneNumberLIST as Dictionary<string, Dictionary<string, string>>)
+                    {
+                        <div class="d-inline p-2">@(phonenumber_tmp.Value["name"] + "\t0" + phonenumber_tmp.Key)</div>
+                    }
+                </div>
+                <div>Stay Online with us</div>
+                <div>
+                    @foreach (var social_tmp in ViewBag.SocialLIST as Dictionary<string, Dictionary<string, string>>)
+                    {
+                        <a href="@social_tmp.Value["Link"]"><img src="@social_tmp.Value["Pic"]" width="10%" /></a>
+                    }
+                </div>
+            </div>
+            <div class="col-sm-4">
+                @Html.ActionLink("About", "About", "Home", new { }, new { @class = "text-dark" })
+                @Html.ActionLink("Contact", "Contact", "Home", new { }, new { @class = "text-dark" })
+                @Html.ActionLink("Payment", "Payment", "Home", new { }, new { @class = "text-dark" })
+                @Html.ActionLink("Tracking", "Tracking", "Home", new { }, new { @class = "text-dark" })
+                @Html.ActionLink("Order", "GetOrder", "Home", new { }, new { @class = "text-dark" })
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content text-info">
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
